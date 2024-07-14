@@ -1,0 +1,240 @@
+﻿@model BLL.DTO.PosDTO.AddPOSDTO
+@{
+    ViewBag.Title = "CreatePos";
+}
+
+<h2>CreatePos</h2>
+
+<!-- page content -->
+<style>
+    .checkbox-group {
+        display: flex;
+        flex-direction: row;
+    }
+
+        .checkbox-group div {
+            margin-right: 10px;
+        }
+</style>
+
+@using (Html.BeginForm("CreatePos", "Pos", FormMethod.Post, new { id = "login-form", @class = "login-form" }))
+{
+    <div class="left_col-" role="main">
+        <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                    <div class="x_panel" style="width: 105vh;">
+                        <div class="x_title">
+                            <h4>
+                                User Data
+                            </h4>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            <form id="demo-form2" data-parsley-validate
+                                  class="form-vertical form-label-left">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-12" });
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.Telephone, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Telephone)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.CellPhone, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Address)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.CityName, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <select id="City_Id" name="City_Id" class="select2_single form-control">
+                                                <option value="">-- Select User Type --</option>
+                                                @foreach (var city in ViewBag.City)
+                                                {
+                                                    <option value="@city.Id">@city.Name</option>
+                                                }
+                                                @Html.ValidationMessageFor(model => model.City_Id)
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.Brand, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Brand)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.Model, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Model)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.ConnectionType, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <select id="ConnType_Id" name="ConnType_Id" class="select2_single form-control">
+                                                <option value="">-- Select User Type --</option>
+                                                @foreach (var conType in ViewBag.ConType)
+                                                {
+                                                    <option value="@conType.Id">@conType.ConectionType</option>
+                                                }
+                                                @Html.ValidationMessageFor(model => model.ConnType_Id)
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.MorningOperning, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.TextBoxFor(model => model.MorningOperning, new { @class = "form-control", @type = "time" })
+                                            @Html.ValidationMessageFor(model => model.MorningOperning, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.MorningClosing, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control", @type = "time" })
+                                            @Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.AfternoonOpening, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", @type = "time" })
+                                            @Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        @Html.LabelFor(model => model.AfternonClosing, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            @Html.TextBoxFor(model => model.AfternonClosing, new { @class = "form-control", @type = "time" })
+                                            @Html.ValidationMessageFor(model => model.AfternonClosing, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="hidden-fields-container"></div>
+                                <div class="checkbox-group">
+                                    <div>
+                                        <input type="checkbox" id="mon" name="Mon" value="mon" onchange="updateSelectedDays()" />
+                                        <label for="mon">Mon</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="tue" name="Tue" value="tue" onchange="updateSelectedDays()" />
+                                        <label for="tue">Tue</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="wed" name="Wed" value="wed" onchange="updateSelectedDays()" />
+                                        <label for="wed">Wed</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="thu" name="Thu" value="thu" onchange="updateSelectedDays()" />
+                                        <label for="thu">Thu</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="fri" name="Fri" value="fri" onchange="updateSelectedDays()" />
+                                        <label for="fri">Fri</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sat" name="Sat" value="sat" onchange="updateSelectedDays()" />
+                                        <label for="sat">Sat</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="sun" name="Sun" value="sun" onchange="updateSelectedDays()" />
+                                        <label for="sun">Sun</label>
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-12 col-md-offset-3">
+                                            <button type="submit" value="CreatePos" class="btn btn-success" style="color: #fff;">
+                                                Create new POS
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function updateSelectedDays() {
+        // Containerul pentru câmpurile ascunse
+        var container = document.getElementById('hidden-fields-container');
+        container.innerHTML = ''; // Goliți containerul
+
+        // Obțineți toate checkbox-urile bifate
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+        // Adăugați un câmp ascuns pentru fiecare checkbox bifat
+        checkboxes.forEach(function (checkbox) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'SelectedDays';
+            input.value = checkbox.value;
+            container.appendChild(input);
+        });
+    }
+</script>

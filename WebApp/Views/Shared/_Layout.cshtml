@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>Libra!</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/datatables.min.css" rel="stylesheet">
+    <link href="~/Content/custom.min.css" rel="stylesheet">
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="~/Content/Style.css" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #FFFFFF;
+        }
+
+        .nav-md .container.body .main_container {
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <header>
+                <div class="col-md-3 left_col menu_fixed">
+                    <div class="left_col scroll-view">
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="index.html" class="site_title">
+                                <i class="fa fa-bank"></i> <span>Libra Dashboard!</span>
+                            </a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <!-- menu profile quick info -->
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                            </div>
+                            <div class="profile_info">
+                                <span>Welcome,</span>
+                                <h2>@User.Identity.Name </h2>
+                            </div>
+                        </div>
+                        <!-- /menu profile quick info -->
+
+                        <br />
+
+                        <!-- sidebar menu -->
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")" class="nav-link">
+                                            <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i class="fa fa-credit-card"></i> POS <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                @Html.ActionLink("Add POS", "CreatePos", "Pos", null, new { @class = "nav-link" })
+                                            </li>
+                                            <li> @Html.ActionLink("Browse POS", "BrowsePos", "Pos", null, new { @class = "nav-link" }) </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-wrench"></i> Issues <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                @Html.ActionLink("Add Issue", "BrowsePos", "Issue", null, new { @class = "nav-link" })
+                                            <li>
+                                                @Html.ActionLink("Browse Issue", "BrowseIssue", "Issue", null, new { @class = "nav-link" })
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                            <a><i class="fa fa-user"></i> Users<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li>
+                                                    @Html.ActionLink("Add User", "CreateUser", "User", null, new { @class = "nav-link" })
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Browse User", "Browse", "User", null, new { @class = "nav-link" })
+                                                </li>
+                                            </ul>
+                                        }
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <div class="nav toggle">
+                            <a id="menu_toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </div>
+                        <nav class="nav navbar-na pull-right">
+                            <ul class=" navbar-right">
+                                <li class="nav-item dropdown open">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+
+                                        @User.Identity.Name
+                                    </a>
+                                    <span style="margin-left :10px;"></span>
+                                    @Html.ActionLink("Logout", "LogOff", "Authorization", null, new { @class = "nav-link" })
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <!-- page content -->
+            <div class="right_col">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+            <!-- /page content -->
+
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

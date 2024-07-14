@@ -1,0 +1,311 @@
+﻿@model BLL.DTO.IssueDTO.UpdateIssuesDTO
+
+
+<style>
+    .full-width-table {
+        width: 100%;
+    }
+
+        .full-width-table th, .full-width-table td {
+            width: auto;
+        }
+</style>
+
+<div class="modal fade" id="edit-issue-modal" tabindex="-1" role="dialog" aria-labelledby="editIssueLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editIssueLabel">Edit Issue</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h4>
+                                    Issue object
+                                </h4>
+                            </div>
+                            <div class="x_content">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>POS Id</th>
+                                            <th>POS Name</th>
+                                            <th>Telephone</th>
+                                            <th>CellPhone</th>
+                                            <th>Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>@Model.IdPos</td>
+                                            <td>@Model.PosName.</td>
+                                            <td>@Model.PosTelephone</td>
+                                            <td>@Model.PosCellPhone</td>
+                                            <td>@Model.PosAddress</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm("EditIssue", "Issue", FormMethod.Post, new { id = "login-form", @class = "login-form" }))
+                {
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+
+                    @Html.HiddenFor(x => x.Id)
+
+
+                    <div class="left_col-" role="main">
+                        <div class="">
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h4>
+                                                Issue Details
+                                            </h4>
+                                        </div>
+                                        <div class="x_content">
+                                            <form id="demo-form2" data-parsley-validate
+                                                  class="form-vertical form-label-left">
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.IssueType, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <select id="IssueType" name="IdType" class="select2_single form-control">
+                                                                @foreach (var issueType in ViewBag.IssueType)
+                                                                {
+                                                                    <option value="@issueType.Id" @(Model.IdType == issueType.Id ? "selected" : "")>@issueType.Name </option>
+                                                                }
+                                                                @Html.ValidationMessageFor(model => model.IssueType)
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.SubType, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <select id="SubType" name="IdSubType" class="select2_single form-control">
+                                                                @foreach (var issueType in ViewBag.SubType)
+                                                                {
+                                                                    <option value="@issueType.Id" @(Model.IdSubType == issueType.Id ? "selected" : "")>@issueType.Name </option>
+                                                                }
+                                                            </select>
+                                                            @Html.ValidationMessageFor(model => model.SubType)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.Problem, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <select id="Problem" name="IdProblem" class="select2_single form-control">
+                                                                @foreach (var issueType in ViewBag.ProblemType)
+                                                                {
+                                                                    <option value="@issueType.Id" @(Model.IdProblem == issueType.Id ? "selected" : "")>@issueType.Name </option>
+                                                                }
+                                                            </select>
+                                                            @Html.ValidationMessageFor(model => model.Problem)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.Priority, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <select id="Priority" name="PriorityId" class="select2_single form-control">
+                                                                <option value="">-- Select Priority--</option>
+                                                                @foreach (var prior in ViewBag.Priority)
+                                                                {
+                                                                    <option value="@prior.Id" @(Model.PriorityId == prior.Id ? "selected" : "")>@prior.Priority </option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <select id="Status" name="IdStatus" class="select2_single form-control">
+                                                                <option value="">-- Select Status--</option>
+                                                                @foreach (var status in ViewBag.Status)
+                                                                {
+                                                                    <option value="@status.Id" @(Model.IdStatus == status.Id ? "selected" : "")>@status.Status </option>
+                                                                }
+                                                                @Html.ValidationMessageFor(model => model.Status)
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.ProblemDescription, "Problem Description", new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            @Html.TextAreaFor(model => model.ProblemDescription, new { @class = "form-control" })
+                                                            @Html.ValidationMessageFor(model => model.ProblemDescription)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.Solution, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            @Html.EditorFor(model => model.Solution, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Solution)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.Memo, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            @Html.EditorFor(model => model.Memo, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.Memo)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        @Html.LabelFor(model => model.UserType, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <select id="UserType" name="IdUserType" class="select2_single form-control">
+                                                                <option value="">-- Select Status--</option>
+                                                                @foreach (var userType in ViewBag.UserType)
+                                                                {
+                                                                    <option value="@userType.Id" @(Model.IdUserType == userType.Id ? "selected" : "")>@userType.UserType </option>
+                                                                }
+                                                                @Html.ValidationMessageFor(model => model.Status)
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h4>
+                                    Issue Data
+                                </h4>
+                            </div>
+                            <div class="x_content">
+                                <table id="logsTable" class="table table-striped display" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Insert Date</th>
+                                            <th>Action</th>
+                                            <th>User</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-12">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" data-save="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+        let columns = [
+            { "data": "Id", "name": "Id", "autoWidth": true },
+            { "data": "InsertDate", "name": "Insert Date", "autoWidth": true },
+            { "data": "Action", "name": "Action", "autoWidth": true },
+            { "data": "User", "name": "User", "autoWidth": true },
+            { "data": "Notes", "name": "Notes", "autoWidth": true },
+
+        ];
+
+        bindDataTable("#logsTable", "/issue/QueryLogs", columns)
+
+        var issueTypes = @Html.Raw(Json.Encode(ViewBag.IssueType));
+        var subTypes = @Html.Raw(Json.Encode(ViewBag.SubType));
+        var problemTypes = @Html.Raw(Json.Encode(ViewBag.ProblemType));
+
+        var issueTypeSelect = document.getElementById("IssueType");
+        var subTypeSelect = document.getElementById("SubType");
+        var problemSelect = document.getElementById("Problem");
+
+        // Event listener for IssueType change
+        issueTypeSelect.onchange = function () {
+            var selectedIssueTypeId = parseInt(this.value);
+
+            console.log("change main issue triggered");
+
+            // Clear and populate SubType dropdown
+            subTypeSelect.options.length = 0;
+            subTypeSelect.options[0] = new Option('-- Select SubType --', '');
+            for (var i = 0; i < subTypes.length; i++) {
+                if (subTypes[i].ParentIssues === selectedIssueTypeId && subTypes[i].IssueLevel === 2) {
+                    subTypeSelect.options[subTypeSelect.options.length] = new Option(subTypes[i].Name, subTypes[i].Id);
+                }
+            }
+
+            // Clear Problem dropdown
+            problemSelect.options.length = 0;
+            problemSelect.options[0] = new Option('-- Select Problem --', '');
+        };
+
+        // Event listener for SubType change
+        subTypeSelect.onchange = function () {
+            var selectedSubTypeId = parseInt(this.value);
+
+            // Clear and populate Problem dropdown
+            problemSelect.options.length = 0;
+            problemSelect.options[0] = new Option('-- Select Problem --', '');
+            for (var i = 0; i < problemTypes.length; i++) {
+                if (problemTypes[i].ParentIssues === selectedSubTypeId && problemTypes[i].IssueLevel === 3) {
+                    problemSelect.options[problemSelect.options.length] = new Option(problemTypes[i].Name, problemTypes[i].Id);
+                }
+            }
+        };
+    });
+</script>

@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "BrowsePos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    Browse POS
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table id="posTable" class="display">
+                    <thead>
+                        <tr>
+                            <th> Pos Id</th>
+                            <th> Pos Name</th>
+                            <th>Telephone</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                </table>
+                <br />
+                <br />
+
+                <div id="modal-placeholder"></div>
+
+                <div>
+                    <button type="button" class="btn btn-warning" data-toggle="ajax-modal" data-target="#edit-pos-modal" data-url="@Url.Action("EditPosPartialView")">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#detail-pos-modal" data-url="@Url.Action("DetailsPosPartialView")">
+                        Details
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            let columns = [
+                { "data": "Id", "name": " Pos Id", "autoWidth": true },
+                { "data": "Name", "name": " Pos Name", "autoWidth": true },
+                { "data": "Telephone", "name": "Telephone", "autoWidth": true },
+                { "data": "Address", "name": "Address", "autoWidth": true },
+                { "data": "Status", "name": "Status", "autoWidth": true }
+            ];
+
+            bindDataTable("#posTable", "/pos/QueryPos", columns)
+
+            var modalPlaceHolderElement = $('#modal-placeholder');
+            var posTable = $('#posTable').DataTable();
+
+            $('#posTable tbody').on('click', 'tr', function () {
+                if (!$(this).hasClass('selected')) {
+                    $('#posTable tbody tr.selected').removeClass('selected');
+
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('button[data-toggle="ajax-modal"]').click(function () {
+                var rowData = posTable.row('.selected').data();
+
+                var url = $(this).data('url') + "?posId=" + rowData.Id;
+                $.get(url).done(function (data) {
+                    modalPlaceHolderElement.html(data);
+                    modalPlaceHolderElement.find('.modal').modal('show');
+                });
+
+            });
+
+
+            modalPlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var dataToSend = form.serialize();
+
+                $.post(actionUrl, dataToSend).done(function (data) {
+
+                    var newBody = $('.modal-body', data);
+                    modalPlaceHolderElement.find('.modal-body').replaceWith(newBody);
+
+                    var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                    if (isValid) {
+                        modalPlaceHolderElement.find('.modal').modal('hide');
+                        posTable.ajax.reload();
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

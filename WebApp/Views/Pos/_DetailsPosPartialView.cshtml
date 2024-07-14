@@ -1,0 +1,257 @@
+﻿@model BLL.DTO.PosDTO.GetPosDTO
+
+<div class="modal fade" id="detail-pos-modal" tabindex="-1" role="dialog" aria-labelledby="detailPosLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailPosLabel">POS Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="left_col-" role="main">
+                    <div class="">
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-12">
+                                <div class="x_panel" style="width: 100%;">
+                                    <div class="x_title">
+                                        <h4>
+                                            POS Data
+                                        </h4>
+                                    </div>
+                                    <div class="x_content">
+                                        <br />
+                                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Id, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Telephone, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.CellPhone, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.City_Id, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        <select id="City_Id" name="City_Id" class="select2_single form-control" disabled>
+                                                            <option value="">-- Select User Type --</option>
+                                                            @foreach (var city in ViewBag.City)
+                                                            {
+                                                                <option value="@city.Id" @(Model.City_Id == city.Id ? "selected" : "")>@city.Name</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Brand, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Model, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.ConnType_Id, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        <select id="ConnType_Id" name="ConnType_Id" class="select2_single form-control" disabled>
+                                                            <option value="">-- Select User Type --</option>
+                                                            @foreach (var conType in ViewBag.ConType)
+                                                            {
+                                                                <option value="@conType.Id" @(Model.ConnType_Id == conType.Id ? "selected" : "")>@conType.ConectionType </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="x_title">
+                                                <h4>
+                                                    Operating hours and holidays
+                                                </h4>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.MorningOperning, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.TextBoxFor(model => model.MorningOperning, new { @class = "form-control", @type = "time", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.MorningClosing, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control", @type = "time", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.AfternoonOpening, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", @type = "time", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.AfternonClosing, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.TextBoxFor(model => model.AfternonClosing, new { @class = "form-control", @type = "time", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="hidden-fields-container"></div>
+                                            <div class="checkbox-group " style="display: flex;">
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("mon"))
+                                                    {
+                                                        <input type="checkbox" id="mon" name="Mon" value="mon" onchange="updateSelectedDays()" checked  disabled/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="mon" name="Mon" value="mon" onchange="updateSelectedDays()"   disabled/>
+                                                    }
+                                                    <label for="mon">Mon</label>
+                                                </div>
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("tue"))
+                                                    {
+                                                        <input type="checkbox" id="tue" name="Tue" value="tue" onchange="updateSelectedDays()" checked  disabled/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="tue" name="Tue" value="tue" onchange="updateSelectedDays()"  disabled/>
+                                                    }
+                                                    <label for="tue">Tue</label>
+                                                </div>
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("wed"))
+                                                    {
+                                                        <input type="checkbox" id="wed" name="Wed" value="wed" onchange="updateSelectedDays()" checked  disabled/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="wed" name="Wed" value="wed" onchange="updateSelectedDays()"  disabled/>
+                                                    }
+                                                    <label for="wed">Wed</label>
+                                                </div>
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("thu"))
+                                                    {
+                                                        <input type="checkbox" id="thu" name="Thu" value="thu" onchange="updateSelectedDays()" checked  disabled/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="thu" name="Thu" value="thu" onchange="updateSelectedDays()"  disabled/>
+                                                    }
+                                                    <label for="thu">Thu</label>
+                                                </div>
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("fri"))
+                                                    {
+                                                        <input type="checkbox" id="fri" name="Fri" value="fri" onchange="updateSelectedDays()" checked  disabled />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="fri" name="Fri" value="fri" onchange="updateSelectedDays()"  disabled/>
+                                                    }
+                                                    <label for="fri">Fri</label>
+                                                </div>
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("sat"))
+                                                    {
+                                                        <input type="checkbox" id="sat" name="Sat" value="sat" onchange="updateSelectedDays()" checked  disabled />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="sat" name="Sat" value="sat" onchange="updateSelectedDays()"  disabled />
+                                                    }
+                                                    <label for="sat">Sat</label>
+                                                </div>
+                                                <div>
+                                                    @if (Model.SelectedDays.Contains("sun"))
+                                                    {
+                                                        <input type="checkbox" id="sun" name="Sun" value="sun" onchange="updateSelectedDays()" checked  disabled/>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="sun" name="Sun" value="sun" onchange="updateSelectedDays()"  disabled/>
+                                                    }
+                                                    <label for="sun">Sun</label>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

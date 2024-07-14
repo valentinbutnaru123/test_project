@@ -1,0 +1,87 @@
+﻿@model BLL.DTO.UserDTO.GetUserDTO
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = null;
+}
+
+
+
+
+@using (Html.BeginForm("Login", "Authorization", FormMethod.Post, new { id = "login-form", @class = "login-form" }))
+{
+    
+
+    <h1>Welcome to Libra</h1>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Login, new { @class = "control-label" })
+        @Html.EditorFor(model => model.Login)
+        @Html.ValidationMessageFor(model => model.Login)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+        @Html.PasswordFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Login" class="btn" />
+    </div>
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f4;
+    }
+
+    .login-form {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px; /* Sau orice altă lățime preferată */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    input[type="text"], input[type="password"], input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+</style>
+
+

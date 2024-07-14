@@ -1,0 +1,118 @@
+﻿@model BLL.DTO.UserDTO.AddUserDTO 
+@{
+    ViewBag.Title = "CreateUser";
+}
+
+<h1>CreateUser</h1>
+
+<!-- page content -->
+
+@using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { id = "login-form", @class = "login-form" }))
+{
+  <div class="left_col-" role="main">
+    <div class=""> 
+        <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="x_panel" style="width: 105vh;">
+                    <div class="x_title">
+                        <h4>
+                            User Data
+                        </h4> 
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate
+                              class="form-vertical form-label-left">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.Login, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                         @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Password ,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name , "",new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.Telephone, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Telephone ,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email ,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    @Html.LabelFor(model => model.UserTypeId, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        <select id="UserTypeId" name="UserTypeId" class="select2_single form-control">
+                                            <option value="">-- Select User Type --</option>
+                                            @foreach (var userType in ViewBag.UserTypes)
+                                            {
+                                                <option value="@userType.Id">@userType.UserType</option>
+                                            }
+                                            @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-12 col-md-offset-3">
+                                        <button class="btn btn-primary" type="button" style="color: #fff;">
+                                            @Html.ActionLink("Cancel", "Browse", "User", null, new { @class = "nav-link" })
+                                        </button>
+                                        <button type="submit" value="CreateUser" class="btn btn-success" style="color: #fff;">
+                                            Save changes
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+         </div>  
+    </div>
+ </div>
+}

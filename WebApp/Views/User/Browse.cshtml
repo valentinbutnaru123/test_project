@@ -1,0 +1,113 @@
+﻿@model BLL.DTO.UserDTO.GetUsersDTO
+@{
+    ViewBag.Title = "Browse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    Browse Users
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table id="userTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Login</th>
+                            <th>Telephone</th>
+                            <th>User Type Name</th>
+                        </tr>
+                    </thead>
+                </table>
+                <br />
+                <br />
+
+                <div id="modal-placeholder"></div>
+
+                <div>
+                    <button type="button" class="btn btn-warning" data-toggle="ajax-modal" data-target="#edit-user-modal" data-url="@Url.Action("EditUserPartialView")">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#detail-user-modal" data-url="@Url.Action("DetailsUserPartialView")">
+                        Details
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            let columns = [
+                { "data": "Id", "name": "Id", "autoWidth": true },
+                { "data": "Name", "name": "Name", "autoWidth": true },
+                { "data": "Email", "name": "Email", "autoWidth": true },
+                { "data": "Login", "name": "Login", "autoWidth": true },
+                { "data": "Telephone", "name": "Telephone", "autoWidth": true },
+                { "data": "UserType", "name": "User Type Name", "autoWidth": true }
+            ];
+
+            bindDataTable("#userTable", "/user/QueryUsers", columns);
+
+            var modalPlaceHolderElement = $('#modal-placeholder');
+            var userTable = $('#userTable').DataTable();
+
+            $('#userTable tbody').on('click', 'tr', function () {
+                if (!$(this).hasClass('selected')) {
+                    $('#userTable tbody tr.selected').removeClass('selected');
+
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('button[data-toggle="ajax-modal"]').click(function () {
+                var rowData = userTable.row('.selected').data();
+
+                var url = $(this).data('url') + "?userId=" + rowData.Id;
+                $.get(url).done(function (data) {
+                    modalPlaceHolderElement.html(data);
+                    modalPlaceHolderElement.find('.modal').modal('show');
+                });
+
+            });
+
+            modalPlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var dataToSend = form.serialize();
+
+                $.post(actionUrl, dataToSend).done(function (data) {
+
+                    var newBody = $('.modal-body', data);
+                    modalPlaceHolderElement.find('.modal-body').replaceWith(newBody);
+
+                    var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                    if (isValid) {
+                        modalPlaceHolderElement.find('.modal').modal('hide');
+                        userTable.ajax.reload();
+                    }
+                });
+            });
+        });
+    </script>
+}
+

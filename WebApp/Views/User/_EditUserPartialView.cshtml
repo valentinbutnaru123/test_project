@@ -1,0 +1,113 @@
+﻿@model BLL.DTO.UserDTO.UpdateUserDTO
+
+<div class="modal fade" id="edit-user-modal" tabindex="-1" role="dialog" aria-labelledby="editUserLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserLabel">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { id = "login-form", @class = "login-form" }))
+                {
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <div class="left_col-" role="main">
+                        <div class="">
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h4>
+                                                User Data
+                                            </h4>
+                                        </div>
+                                        <div class="x_content">
+                                            <br />
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Login, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Id, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Telephone, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.UserTypeId, new { @class = "control-label col-md-3 col-sm-3 col-12" })
+                                                    <div class="col-md-6 col-sm-6 col-12">
+                                                        <select id="UserTypeId" name="UserTypeId" class="select2_single form-control">
+                                                            <option value="">-- Select User Type --</option>
+                                                            @foreach (var userType in ViewBag.UserTypes)
+                                                            {
+                                                                <option value="@userType.Id" @(Model.UserTypeId == userType.Id ? "selected" : "")>@userType.UserType</option>
+                                                            }
+                                                        </select>
+                                                        @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success" data-save="modal">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

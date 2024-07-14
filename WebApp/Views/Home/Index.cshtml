@@ -1,0 +1,124 @@
+﻿@model BBL.DTO.IssueDTO.GetIssuesStatusDTO
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row dashboard1">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Dashboard</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="box new-issues">
+                                @if (Model.IssuesStatuses.Any(x => x.Status.ToLower() == "new"))
+                                {
+                                    <h3>@Model.IssuesStatuses.FirstOrDefault(x => x.Status.ToLower() == "new").TotalIssues </h3>
+
+                                }
+                                else
+                                {
+                                    <h3>0</h3>
+                                }
+                                <p>New issues</p>
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box pending-issues">
+                                @if (Model.IssuesStatuses.Any(x => x.Status.ToLower() == "pending"))
+                                {
+                                    <h3>@Model.IssuesStatuses.FirstOrDefault(x => x.Status.ToLower() == "pending").TotalIssues </h3>
+
+                                }
+                                else
+                                {
+                                    <h3>0</h3>
+                                }
+                                <p>Pending issues</p>
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box assigned-issues">
+                                @if (Model.IssuesStatuses.Any(x => x.Status.ToLower() == "assigned"))
+                                {
+                                    <h3>@Model.IssuesStatuses.FirstOrDefault(x => x.Status.ToLower() == "assigned").TotalIssues </h3>
+
+                                }
+                                else
+                                {
+                                    <h3>0</h3>
+                                }
+                                <p>Assigned issues</p>
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box in-progress-issues">
+                                @if (Model.IssuesStatuses.Any(x => x.Status.ToLower() == "in progress"))
+                                {
+                                    <h3>@Model.IssuesStatuses.FirstOrDefault(x => x.Status.ToLower() == "in progress").TotalIssues </h3>
+
+                                }
+                                else
+                                {
+                                    <h3>0</h3>
+                                }
+                                <p>In progress issues</p>
+                                <button class="btn btn-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <table id="issueTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Issue</th>
+                                        <th>Pos.Id</th>
+                                        <th>Pos.Name</th>
+                                        <th>Created By</th>
+                                        <th>Date</th>
+                                        <th>Issue Type</th>
+                                        <th>Status</th>
+                                        <th>Assigned To</th>
+                                        <th>Memo</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            let columns = [
+                { "data": "Id", "name": "Issue", "autoWidth": true },
+                { "data": "IdPos", "name": "Pos.Id", "autoWidth": true },
+                { "data": "PosName", "name": "Pos.Name", "autoWidth": true },
+                { "data": "UserName", "name": "Created By", "autoWidth": true },
+                { "data": "CreationDate", "name": "Date", "autoWidth": true },
+                { "data": "IssueType", "name": "Issue Type", "autoWidth": true },
+                { "data": "Status", "name": "Status", "autoWidth": true },
+                { "data": "UserType", "name": "Assigned To", "autoWidth": true },
+                { "data": "Memo", "name": "Memo", "autoWidth": true },
+            ];
+
+            bindDataTable("#issueTable", "/issue/QueryIssue", columns);
+        });
+    </script>
+}
+

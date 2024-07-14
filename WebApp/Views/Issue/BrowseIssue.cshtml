@@ -1,0 +1,121 @@
+﻿@model BLL.DTO.IssueDTO.GetIssuesDTO
+@{
+    ViewBag.Title = "BrowseIssue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    Browse Issues
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <table id="issueTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Pos.Id</th>
+                            <th>Pos.Name</th>
+                            <th>Created By</th>
+                            <th>Date</th>
+                            <th>Issue Type</th>
+                            <th>Status</th>
+                            <th>Assigned To</th>
+                            <th>Memo</th>
+
+                        </tr>
+                    </thead>
+                </table>
+
+                <br />
+                <br />
+
+                <div id="modal-placeholder"></div>
+
+                <div>
+                    <button type="button" class="btn btn-warning" data-toggle="ajax-modal" data-target="#edit-issue-modal" data-url="@Url.Action("EditIssuePartialView")">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#detail-issue-modal" data-url="@Url.Action("DetailsIssuePartialView")">
+                        Details
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            let columns = [
+                { "data": "Id", "name": "Issue", "autoWidth": true },
+                { "data": "IdPos", "name": " Pos.Id", "autoWidth": true },
+                { "data": "PosName", "name": " Pos.Name", "autoWidth": true },
+                { "data": "UserName", "name": "Created By", "autoWidth": true },
+                { "data": "CreationDate", "name": "Date", "autoWidth": true },
+                { "data": "IssueType", "name": "Issue Type", "autoWidth": true },
+                { "data": "Status", "name": "Status", "autoWidth": true },
+                { "data": "UserType", "name": "Assigned To", "autoWidth": true },
+                { "data": "Memo", "name": "Memo", "autoWidth": true },
+
+            ];
+
+            bindDataTable("#issueTable", "/issue/QueryIssue", columns)
+
+            var modalPlaceHolderElement = $('#modal-placeholder');
+            var issueTable = $('#issueTable').DataTable();
+
+            $('#issueTable tbody').on('click', 'tr', function () {
+                if (!$(this).hasClass('selected')) {
+                    $('#issueTable tbody tr.selected').removeClass('selected');
+
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('button[data-toggle="ajax-modal"]').click(function () {
+                var rowData = issueTable.row('.selected').data();
+
+                var url = $(this).data('url') + "?issueId=" + rowData.Id;
+                $.get(url).done(function (data) {
+                    modalPlaceHolderElement.html(data);
+                    modalPlaceHolderElement.find('.modal').modal('show');
+                });
+
+            });
+
+
+            modalPlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var dataToSend = form.serialize();
+
+                $.post(actionUrl, dataToSend).done(function (data) {
+
+                    var newBody = $('.modal-body', data);
+                    modalPlaceHolderElement.find('.modal-body').replaceWith(newBody);
+
+                    var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                    if (isValid) {
+                        modalPlaceHolderElement.find('.modal').modal('hide');
+                        issueTable.ajax.reload();
+                    }
+                });
+            });
+
+        });
+    </script>
+}

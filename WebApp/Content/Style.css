@@ -1,0 +1,51 @@
+﻿body {
+    /* Stiluri pentru clasele box */
+    /* Stiluri pentru containerul dashboard */
+    /* Stiluri pentru containerul dashboard */
+    .dashboard
+{
+    display: flex; /* Așezare pe orizontală */
+   /* Permiterea trecerii la rândul următor */
+    justify-content: space-around; /* Distanță egală între cutii */
+    align-items: center; /* Aliniere pe axa verticală */
+    margin: 20px; /* Margini exterioare pentru container */
+}
+
+
+.box {
+    border-radius: 5px;
+    color: white;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+    height: 160px;
+}
+
+.new-issues {
+    background-color: #e74c3c;
+}
+/* Red */
+.pending-issues {
+    background-color: #f39c12;
+}
+/* Orange */
+.assigned-issues {
+    background-color: #3498db;
+}
+/* Blue */
+.in-progress-issues {
+    background-color: #2ecc71;
+}
+/* Green */
+.box a {
+    color: white;
+    text-decoration: none;
+}
+
+.selected {
+    background-color: #cce5ff; /* Culoare de fundal pentru rândul selectat */
+    font-weight: bold; /* Text îngroșat pentru rândul selectat */
+}
+
+
+

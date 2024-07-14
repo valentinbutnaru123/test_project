@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "CreateIssue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Issues manager</h1>
+
+<table id="posTable" class="display">
+    <thead>
+        <tr>
+            <th>Pos Id</th>
+            <th>Pos Name</th>
+            <th>Telephone</th>
+            <th>Cellphone</th>
+            <th>Address</th>
+           
+        </tr>
+    </thead>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            let columns = [
+                { "data": "Id", "name": " Pos Id", "autoWidth": true },
+                { "data": "Name", "name": " Pos Name", "autoWidth": true },
+                { "data": "Telephone", "name": "Telephone", "autoWidth": true },
+                { "data": "CellPhone", "name": "Cellphone", "autoWidth": true },
+                { "data": "Address", "name": "Address", "autoWidth": true }
+             
+            ];
+
+            bindDataTable("#posTable", "/pos/QueryPos", columns)
+            bindDataTableDblClick("#posTable","/issue/CreateIssue/" )
+
+        });
+    </script>
+}
